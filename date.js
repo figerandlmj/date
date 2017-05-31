@@ -9,7 +9,7 @@ function currentdate(){
     var myday = mydate.getDate();       //获取当前日(1-31)
     var myweek = mydate.getDay();       //获取当前星期(0-6,0代表星期天)
     var myallday = allday(myyear,mymonth);            //获取当前月份的总天数
-    var myfirstdayweek= getDay(myyear,mymonth-1,1);
+    var myfirstdayweek= getDay(myyear,mymonth,1);
 
     // 当前年月
     var year_month_html="";
@@ -83,7 +83,7 @@ function getnextmonth(x){
     for(var num=1;num<=x;num++){
         myyear = yearMonth(year,month,num)['year'];    //获取年份
         mymonth = yearMonth(year,month,num)['month'];  //获取月份
-        var myweek = getDay(myyear,mymonth-1,1);       //获取当前星期(0-6,0代表星期天)
+        var myweek = getDay(myyear,mymonth,1);       //获取当前星期(0-6,0代表星期天)
         var myallday = allday(myyear,mymonth);         //获取当前月份的总天数
 
         // 当前年月
@@ -172,10 +172,14 @@ function allday(year,month){
 }
 // 返回某个日期的星期
 function getDay(year,month,date) {
-    var birthDay = new Date();
-    birthDay.setFullYear(year);
-    birthDay.setMonth(month);
-    birthDay.setDate(date);
+    if(month<10){
+        month="0"+month;
+    }
+    if(date<10){
+        date="0"+date;
+    }
+    var dates=year+"/"+month+"/"+date;
+    var birthDay = new Date(dates);
     var day = birthDay.getDay();
     return day;
 }
